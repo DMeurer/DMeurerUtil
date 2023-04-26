@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
@@ -16,4 +13,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "utf-8"
+}
+
+
+
+tasks.register("run", JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    getMainClass().set("com.dmeurer.util.Main")
+    enableAssertions = true
+    standardInput = System.in
+    group = "application"
 }
